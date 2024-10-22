@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Document</title>
+</head>
+
+<body style="background:linear-gradient(270deg,rgb(35, 181, 201),blue)">
+    <style>
+        .container {
+            background: linear-gradient(45deg, #0051ff, #ff00ff);
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            left: 480px;
+            top: 160px;
+            border-radius: 1000px;
+            text-align: center;
+            justify-content: center;
+            box-shadow: 1px 1px 10px 5px rgb(0, 0, 0);
+
+        }
+
+        .display {
+            position: absolute;
+            font-family: monospace;
+            font-size: 45px;
+            top: 55px;
+            left: 30px;
+            color: rgb(255, 255, 255);
+        }
+
+        .button {
+            top: 180px;
+            position: relative;
+            width: 100px;
+            height: auto;
+            margin-left: 5px;
+            left: 20px;
+        }
+
+        .con2 {
+            background: linear-gradient(135deg, #073291, #ff00ff);
+            position: relative;
+            width: 310px;
+            height: 310px;
+            left: 446px;
+            top: 127px;
+            border-radius: 1000px;
+            text-align: center;
+        }
+
+        .play {
+            position: absolute;
+            top: 150px;
+            left: 70px;
+            cursor: pointer;
+        }
+
+
+        .fg {
+            position: absolute;
+            color: rgb(0, 0, 0);
+            left: 51px;
+            font-family: sans-serif;
+            top: 30px;
+
+
+        }
+        .pause{
+            position: absolute;
+                        top: 150px;
+                        cursor: pointer;
+
+
+        }
+        @media(max-width: 767px) {
+            .container{
+                position: absolute;
+                left: 50px;
+            }
+            .button{
+                position: absolute;
+                left: 10px;
+                margin-left: 5px;
+            }
+            .con2{
+                position: absolute;
+                left: 25px;
+                top: 135px;
+            }
+        }
+        @keyframes blink {
+             50%{opacity: 0;}
+             
+        }
+            
+        .reset{
+            position: absolute;
+            width: auto;
+            height: auto;
+            top: 212px;
+            background: #ffffff;
+            color: rgb(0, 0, 0);
+            left: 100px;
+            border:none;
+            font-family: sans-serif;
+            font-size: 15px;
+            border-radius: 5px;
+           padding: 5px;
+           cursor: pointer;
+        }
+        .reset:hover{
+            opacity: 0.5;
+        }
+        .e{
+            color:white;
+            position: absolute;
+            top: 450px;
+            left: 150px;
+        }
+    </style>
+    <div id="con2" class="con2">
+    </div>
+    <div id="container" class="container">
+        <h2 id="fg" class="fg">STOP WATCH</h2>
+
+        <h1 class="display" id="display">00:00:00</h1>
+        <!-- <input type="button" class="button" id="st" value="START" onclick="start(this)"> -->
+        <!-- <input type="button" class="button" value="RESET" onclick="reset(),enable()"> -->
+        <!-- <input type="button" class="button" value="HOLD" onclick="hold()"> -->
+        <img class="play" src="./plays.webp" alt="" height="45px" width="60px" onclick="start(this)">
+        <img class="pause" src="./pausess.webp" alt="" height="45px" width="60px"  onclick="hold()">
+<button class="reset" onclick="reset()">RESET</button>
+
+    </div>
+<h1 class="e">oo01</12>
+    <script>
+        let [hours, minutes, seconds] = [0, 0, 0];
+        let display = document.getElementById('display');
+        let condition = null;
+
+        function circuit() {
+            seconds++;
+            if (seconds == 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes == 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+            let hour_ = (hours < 10) ? "0" + hours : hours;
+            let minute_ = (minutes < 10) ? "0" + minutes : minutes;
+            let second_ = (seconds < 10) ? "0" + seconds : seconds;
+            display.innerText = hour_ + ":" + minute_ + ":" + second_;
+
+        }
+        function start(op) {
+            let color =document.getElementById('display');
+            display.setAttribute("style","color:white;");
+            let fg =document.getElementById('fg');
+           fg.setAttribute("style","color:black;");
+            // op.disabled = true;
+            if (condition !== null) {
+                clearInterval(condition);
+            }
+            condition = setInterval(circuit, 1000);
+
+        }
+        // function enable() {
+        //     let x = document.getElementById('st');
+        //     x.disabled = false;
+        // }
+        function reset() {
+            let color =document.getElementById('display');
+            display.setAttribute("style","color:white;");
+            let fg =document.getElementById('fg');
+           fg.setAttribute("style","color:black;");
+            clearInterval(condition);
+            [hours, minutes, seconds] = [0, 0, 0];
+            display.innerText = "00:00:00";
+
+        }
+        function hold() {
+            let color =document.getElementById('display');
+            display.setAttribute("style","color:black;animation: blink 1s infinite;"); 
+            let fg =document.getElementById('fg');
+            fg.setAttribute("style","color:white;");   
+                clearInterval(condition);
+          console.log('working');
+          
+        }
+
+
+
+    </script>
+</body>
+
+</html>
